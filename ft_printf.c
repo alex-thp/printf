@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexandre <alexandre@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 14:38:30 by ade-temm          #+#    #+#             */
-/*   Updated: 2019/11/08 17:33:30 by ade-temm         ###   ########.fr       */
+/*   Updated: 2019/11/12 21:23:33 by alexandre        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,23 +46,32 @@ int		is_set(char c)
 
 void	ft_do(t_list *tab, int i)
 {
-	if (tab->str[tab->index + i] == 'd' || tab->str[tab->index + i] == 'i')
-		ft_do_int(va_arg(tab->ap, int), tab);
-	if (tab->str[tab->index + i] == 'x' || tab->str[tab->index + i] == 'X')
-		ft_do_hexa(va_arg(tab->ap, unsigned int), tab, tab->str[tab->index + i]);
-	if (tab->str[tab->index + i] == 'p')
-		ft_do_address(va_arg(tab->ap, unsigned long), tab, 0);
-	if (tab->str[tab->index + i] == 'c')
-		ft_do_char(va_arg(tab->ap, int), tab);
-	if (tab->str[tab->index + i] == 's')
-		ft_do_string(va_arg(tab->ap, char*), tab);
-	if (tab->str[tab->index + i] == 'u')
-		ft_do_unsigned_int(va_arg(tab->ap, unsigned int), tab);
-	if (tab->str[tab->index + i] == '%')
+	if (tab->arg == 'd' || tab->arg == 'i')
+		ft_do_int(tab->var_int, tab);
+	if (tab->arg == 'x' || tab->arg == 'X')
+		ft_do_hexa(tab->var_ulong, tab, tab->arg);
+	if (tab->arg == 'p')
+		ft_do_address(tab->var_ulong, tab, 0);
+	if (tab->arg == 'c')
+		ft_do_char(tab->var_int, tab);
+	if (tab->arg == 's')
+		ft_do_string(tab->var_string, tab);
+	if (tab->arg == 'u')
+		ft_do_unsigned_int(tab->var_ulong, tab);
+	if (tab->arg == '%')
 	{
 		ft_putchar_fd('%', 1);
 		tab->count +=1;
 	}
+}
+
+void	ft_init_parse(t_list *tab)
+{
+	tab->moins = 0;
+	tab->point = 0;
+	tab->zero = 0;
+	tab->star = 0;
+	tab->precision = 0;
 }
 
 int		ft_printf(const char *str, ...)
@@ -77,9 +86,11 @@ int		ft_printf(const char *str, ...)
 		i = 1;
 		if (str[tab->index] == '%')
 		{
+			ft_init_parse(tab);
 			while (is_set(str[tab->index + i]) == -1)
 				i++;
-			ft_parse_flags(tab, i);
+			tab->arg = str[tab->index + i];
+			ft_parse(tab);
 			tab->index += i;
 		}
 		else 
@@ -97,9 +108,11 @@ int		ft_printf(const char *str, ...)
 int		main(void)
 {
 	int i;
+	int j;
 
-	i = 0;
-	i++;
-	i = ft_printf("Salut, j'ai %d amis et %c%s tomates %%\nVoici l'adresse du pointeur de i : %p\nEt maintenant ABC en hexa(min) : %x\nEt en maj : %X", 2, 't', "rois", &i, 0xabc, 0xabc);
+	i = ft_printf("Salut, j'ai %d amis et %c%-5.2s tomates %%\nVoici l'adresse du pointeur de i : %p\nEt maintenant ABC en hexa(min) : %012.1x\nEt en maj : %X\n\n", 2, 't', "rois", &i, 200, 200);
+	j = printf("Salut, j'ai %d amis et %c%-5.2s tomates %%\nVoici l'adresse du pointeur de i : %p\nEt maintenant ABC en hexa(min) : %012.1x\nEt en maj : %X\n\n", 2, 't', "rois", &i, 200, 200);
+	//printf("Salut %ces %8.5s", 'l', "amis");
 	printf("\n%d", i);
+	printf("\n%d", j);
 }
