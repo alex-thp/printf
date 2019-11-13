@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexandre <alexandre@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 11:56:09 by ade-temm          #+#    #+#             */
-/*   Updated: 2019/11/12 21:14:33 by alexandre        ###   ########.fr       */
+/*   Updated: 2019/11/13 15:50:10 by ade-temm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ typedef struct	s_list
 	int					var_int;
 	char				*var_string;
 	int					precision;
+	long int			val_moins;
+	long int			val_point;
 }						t_list;
 
 int						ft_printf(const char *str, ...);
@@ -53,7 +55,8 @@ int						ft_atoi(const char *str);
 void					ft_parse(t_list *tab);
 void					ft_parse_2(t_list *tab);
 void					ft_parse_3(t_list *tab);
-char    				*ft_strdup(char *src);
+char					*ft_strdup(const char *s1);
 int						ft_strlen(char *str);
+void					ft_next_parse(t_list *tab);
 
 #endif

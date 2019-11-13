@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexandre <alexandre@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 14:38:30 by ade-temm          #+#    #+#             */
-/*   Updated: 2019/11/12 21:23:33 by alexandre        ###   ########.fr       */
+/*   Updated: 2019/11/13 17:18:56 by ade-temm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ void	ft_init_parse(t_list *tab)
 	tab->zero = 0;
 	tab->star = 0;
 	tab->precision = 0;
+	tab->val_moins = 0;
+	tab->val_point = 0;
 }
 
 int		ft_printf(const char *str, ...)
@@ -110,8 +112,10 @@ int		main(void)
 	int i;
 	int j;
 
-	i = ft_printf("Salut, j'ai %d amis et %c%-5.2s tomates %%\nVoici l'adresse du pointeur de i : %p\nEt maintenant ABC en hexa(min) : %012.1x\nEt en maj : %X\n\n", 2, 't', "rois", &i, 200, 200);
-	j = printf("Salut, j'ai %d amis et %c%-5.2s tomates %%\nVoici l'adresse du pointeur de i : %p\nEt maintenant ABC en hexa(min) : %012.1x\nEt en maj : %X\n\n", 2, 't', "rois", &i, 200, 200);
+	// i = ft_printf("Salut, j'ai %*.2d amis et %c%s tomates %%\nVoici l'adresse du pointeur de i : %p\nEt maintenant ABC en hexa(min) : %x\nEt en maj : %X\n\n", -4, 2, 't', "rois", &i, 200, 200);
+	i = ft_printf("ft_printf : %4.d#\n", 1);
+	j = printf("   printf : %4.d#\n", 1);
+	// j = printf("Salut, j'ai %*.2d amis et %c%s tomates %%\nVoici l'adresse du pointeur de i : %p\nEt maintenant ABC en hexa(min) : %x\nEt en maj : %X\n\n", -4, 2, 't', "rois", &i, 200, 200);
 	//printf("Salut %ces %8.5s", 'l', "amis");
 	printf("\n%d", i);
 	printf("\n%d", j);
