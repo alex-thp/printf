@@ -6,7 +6,7 @@
 /*   By: ade-temm <ade-temm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 16:10:08 by ade-temm          #+#    #+#             */
-/*   Updated: 2019/11/08 17:35:53 by ade-temm         ###   ########.fr       */
+/*   Updated: 2019/11/15 20:55:07 by ade-temm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,11 @@ void	ft_do_address(unsigned long i, t_list *tab, int j)
 		ft_do_address(i / 16, tab, i + 1);
 		ft_putchar_fd(base[i % 16], 1);
 	}
+	tab->count += 1;
+}
+
+void	ft_do_pourcent(t_list *tab)
+{
+	ft_putchar_fd('%', 1);
 	tab->count += 1;
 }
